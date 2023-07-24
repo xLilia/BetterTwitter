@@ -1,7 +1,7 @@
 {
   "name": "BetterTwitter",
   "description": "Replaces Twitter Logo",
-  "version": "1.0",
+  "version": "1.1",
   "manifest_version": 3,
   "action": {
     "default_icon": "logo2.png"
