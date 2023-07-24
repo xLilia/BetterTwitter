@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Image</title>
+    <style>
+        /* Optional: Add some basic styling for better user experience */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Image</h1>
+    <input type="file" id="imageInput">
+    <br>
+    <img id="previewImage" src="#" alt="Preview" style="display: none; max-width: 300px; margin-top: 10px;">
+    <br>
+    <button id="saveButton" style="display: none;">Save Image</button>
+    <script>
+        // Get a reference to the input element
+        const imageInput = document.getElementById('imageInput');
+
+        // Add a change event listener to the input element
+        imageInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+
+            // Validate if a file was selected
+            if (file) {
+                const reader = new FileReader();
+
+                // Set up the FileReader to read the selected file as a data URL
+                reader.readAsDataURL(file);
+
+                // When the FileReader is done reading, display the image preview
+                reader.onload = function() {
+                    const previewImage = document.getElementById('previewImage');
+                    previewImage.src = reader.result;
+                    previewImage.style.display = 'block';
+                };
+
+                // Show the save button
+                const saveButton = document.getElementById('saveButton');
+                saveButton.style.display = 'block';
+            }
+        });
+
+        // Add a click event listener to the save button
+        document.getElementById('saveButton').addEventListener('click', function() {
+            // Get the image data URL from the preview image
+            const imageDataUrl = document.getElementById('previewImage').src;
+
+            // Save the image data URL to the extension's sync storage
+            chrome.storage.sync.set({ 'savedImage': imageDataUrl }, function() {
+                console.log('Image saved to sync storage.');
+            });
+        });
+    </script>
+</body>
+</html>
