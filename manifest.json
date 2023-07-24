@@ -1,0 +1,22 @@
+{
+  "name": "BetterTwitter",
+  "description": "Replaces Twitter Logo",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_icon": "logo2.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://twitter.com/*"],
+      "js": ["content-script.js"]
+    }
+  ],
+  "permissions": ["scripting", "activeTab"],
+  "web_accessible_resources": [
+    {
+    "resources": [ "logo2.png" ],
+    "matches": ["https://twitter.com/*"]
+    }
+  ]
+}
